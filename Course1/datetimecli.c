@@ -39,9 +39,13 @@ int main(char argc,char* argv[])
 		exit(0);
 	}
 	
-	int ret = read(cfd, buf, 1024);
-	buf[ret] = 0;
-	printf(buf);
+	while(1)
+	{
+		int ret = read(cfd, buf, 1024);
+		if(ret == 0)
+			break;
+		printf(buf);
+	}
 	
 	close(cfd);
 	return 0;
