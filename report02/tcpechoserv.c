@@ -6,15 +6,23 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <signal.h>
+#include <ctype.h>
 
 void str_echo(int sockfd)
 {
 	int n;
+	int i;
 	char buf[1024];
 	while(1)
 	{
 		if( n = read(sockfd, buf, 1024) == 0)
 			return;
+		for(i=0;i<strlen(buf);i++)
+		{
+			if(isupper(buf[i]))
+				buf[i] = tolower(buf[i]);
+			else	buf[i] = toupper(buf[i]);
+		}
 		write(sockfd, buf, 1024);
 	}
 }
